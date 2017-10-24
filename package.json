@@ -1,0 +1,19 @@
+{
+  "name": "cloneable-ts",
+  "version": "1.0.0",
+  "description": "Scala case class copy method inspired abstract class adding similar method for Typescript classes",
+  "main": "index.d.ts",
+  "scripts": {
+    "test": "mocha -r ts-node/register cloneable-tests.ts"
+  },
+  "author": "Tim Osadchiy <timurosadchiy@gmail.com> (http://osacci.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.43",
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.5.3"
+  }
+}

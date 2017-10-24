@@ -1,0 +1,6 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea
+.gitignore
+node_modules
+cloneable-tests.ts
+tsconfig.json
