@@ -15,16 +15,37 @@ export type CloneableArgs<T> = { [P in keyof T]: T[P]; };
 type CloneableOptionalArgs<T> = { [P in keyof T]?: T[P]; };
 
 function deepClone(oldObj: any) {
-    let newObj: any = oldObj;
-    if (oldObj && typeof oldObj === 'object') {
-        newObj = Object.create(oldObj);
-        for (const i in oldObj) {
-            if (oldObj.hasOwnProperty(i)) {
-                newObj[i] = deepClone(oldObj[i]);
-            }
-        }
+    let newObj: any;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == oldObj || "object" != typeof oldObj) return oldObj;
+
+    // Handle Date
+    if (oldObj instanceof Date) {
+        newObj = new Date();
+        newObj.setTime(oldObj.getTime());
+        return newObj;
     }
-    return newObj;
+
+    // Handle Array
+    if (oldObj instanceof Array) {
+        newObj = [];
+        for (let i = 0, len = oldObj.length; i < len; i++) {
+            newObj[i] = deepClone(oldObj[i]);
+        }
+        return newObj;
+    }
+
+    // Handle Object
+    if (oldObj instanceof Object) {
+        newObj = Object.create(oldObj);
+        for (const attr in oldObj) {
+            if (oldObj.hasOwnProperty(attr)) newObj[attr] = deepClone(oldObj[attr]);
+        }
+        return newObj;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
 function cloneToArgs<T>(originalObj: T, cloneArgs: { [key: string]: any }): T {
