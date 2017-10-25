@@ -1,4 +1,4 @@
-#About
+# About
 Abstract class inspired by the case class copy method in Scala language adding similar method for Typescript classes
 
 # How to use
