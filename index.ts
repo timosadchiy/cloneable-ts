@@ -4,13 +4,15 @@ export abstract class Cloneable<T> {
         applyArgs(<any>this, <any>args);
     }
 
-    clone(args: CloneableArgs<T>) {
+    clone(args: CloneableOptionalArgs<T>) {
         return cloneToArgs(this, args);
     }
 
 }
 
-type CloneableArgs<T> = { [P in keyof T]?: T[P]; };
+export type CloneableArgs<T> = { [P in keyof T]: T[P]; };
+
+type CloneableOptionalArgs<T> = { [P in keyof T]?: T[P]; };
 
 function deepClone(oldObj: any) {
     let newObj: any = oldObj;

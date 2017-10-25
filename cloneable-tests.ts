@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
-import {Cloneable} from "./index";
+import {Cloneable, CloneableArgs} from "./index";
 
 class SubTest {
     readonly someArg: string;
@@ -23,7 +23,7 @@ interface TestArgs {
     readonly sub: SubTest;
 }
 
-class Test extends Cloneable<TestArgs> {
+class Test extends Cloneable<TestArgs> implements CloneableArgs<TestArgs> {
     readonly name: string;
     readonly age: number;
     readonly sub: SubTest;
