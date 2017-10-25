@@ -2,7 +2,7 @@
 Abstract class inspired by the case class copy method in Scala language adding similar method for Typescript classes
 
 # How to use
-    import {Cloneable} from 'cloneable-ts';
+    import {Cloneable, CloneableArgs} from 'cloneable-ts';
     
     // Interface that will be used as named arguments to initialize and clone an object
     interface PersonArgs {
