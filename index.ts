@@ -42,7 +42,9 @@ function cloneToArgs<T>(originalObj: T, cloneArgs: { [key: string]: any }): T {
 }
 
 function applyArgs(obj: { [key: string]: string }, args: { [key: string]: string }) {
-    Object.keys(args).forEach((key, index) => {
-        obj[key] = args[key];
-    });
+    for (const key in args) {
+        if (args.hasOwnProperty(key)) {
+            obj[key] = args[key];
+        }
+    }
 }
