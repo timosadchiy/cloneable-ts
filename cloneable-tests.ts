@@ -45,6 +45,7 @@ const t = new Test({
     ]
 });
 const c = t.clone({name: secondName});
+const d = t.clone();
 
 describe('Object is correctly initialized', () => {
 
@@ -59,8 +60,10 @@ describe('Object is correctly cloned', () => {
 
     it('Object should be correctly cloned', () => {
         expect(t.name).to.not.equal(c.name);
+        expect(t.name).to.equal(d.name);
         expect(c.subs[0].getPrivate()).to.equal(otherTest);
         expect(t.constructor).to.equal(c.constructor);
+        expect(c instanceof Test).to.equal(true);
         expect(t.dateOfBirth.getTime()).to.equal(c.dateOfBirth.getTime());
     });
 

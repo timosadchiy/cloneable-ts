@@ -4,8 +4,8 @@ export abstract class Cloneable<T> {
         applyArgs(<any>this, <any>args);
     }
 
-    clone(args: CloneableOptionalArgs<T>) {
-        return cloneToArgs(this, args);
+    clone(args?: CloneableOptionalArgs<T>) {
+        return cloneToArgs(this, args || {});
     }
 
 }
