@@ -2,8 +2,8 @@
   "name": "cloneable-ts",
   "version": "1.0.7",
   "description": "Scala case class copy method inspired abstract class adding similar method for Typescript classes",
-  "main": "index.ts",
-  "typings": "index.ts",
+  "main": "index.d.ts",
+  "typings": "index.d.ts",
   "scripts": {
     "test": "mocha -r ts-node/register cloneable-tests.ts"
   },
