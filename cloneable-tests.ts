@@ -1,17 +1,17 @@
-import {expect} from 'chai';
-import 'mocha';
+import {expect} from "chai";
+import "mocha";
 import {Cloneable, CloneableArgs} from "./index";
 
 class SubTest {
-    readonly someArg: string;
-    private privateArg: string;
+    public readonly someArg: string;
+    private readonly privateArg: string;
 
     constructor(someArg: string, privateArg: string) {
         this.someArg = someArg;
         this.privateArg = privateArg;
     }
 
-    getPrivate() {
+    public getPrivate() {
         return this.privateArg;
     }
 
@@ -24,9 +24,9 @@ interface TestArgs {
 }
 
 class Test extends Cloneable<TestArgs> implements CloneableArgs<TestArgs> {
-    readonly name: string;
-    readonly dateOfBirth: Date;
-    readonly subs: SubTest[];
+    public readonly name: string;
+    public readonly dateOfBirth: Date;
+    public readonly subs: SubTest[];
 
     constructor(args: TestArgs) {
         super(args);
@@ -34,31 +34,31 @@ class Test extends Cloneable<TestArgs> implements CloneableArgs<TestArgs> {
 
 }
 
-const firstName = 'Tim';
-const secondName = 'Bob';
-const someTest = 'someTest';
-const otherTest = 'otherTest';
+const firstName = "Tim";
+const secondName = "Bob";
+const someTest = "someTest";
+const otherTest = "otherTest";
 const t = new Test({
     name: firstName, dateOfBirth: new Date("1988-1-1"),
     subs: [
-        new SubTest('someTest', 'otherTest')
-    ]
+        new SubTest("someTest", "otherTest"),
+    ],
 });
 const c = t.clone({name: secondName});
 const d = t.clone();
 
-describe('Object is correctly initialized', () => {
+describe("Object is correctly initialized", () => {
 
-    it('properties should be set according to args', () => {
+    it("properties should be set according to args", () => {
         expect(t.name).to.equal(firstName);
         expect(t.subs[0].getPrivate()).to.equal(otherTest);
     });
 
 });
 
-describe('Object is correctly cloned', () => {
+describe("Object is correctly cloned", () => {
 
-    it('Object should be correctly cloned', () => {
+    it("Object should be correctly cloned", () => {
         expect(t.name).to.not.equal(c.name);
         expect(t.name).to.equal(d.name);
         expect(c.subs[0].getPrivate()).to.equal(otherTest);

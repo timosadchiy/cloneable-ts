@@ -1,10 +1,10 @@
 export abstract class Cloneable<T> {
 
     constructor(args: T) {
-        applyArgs(<any>this, <any>args);
+        applyArgs(this as any, args as any);
     }
 
-    clone(args?: CloneableOptionalArgs<T>) {
+    public clone(args?: CloneableOptionalArgs<T>) {
         return cloneToArgs(this, args || {});
     }
 
@@ -14,11 +14,21 @@ export type CloneableArgs<T> = { [P in keyof T]: T[P]; };
 
 type CloneableOptionalArgs<T> = { [P in keyof T]?: T[P]; };
 
+function applyArgs(obj: { [key: string]: string }, args: { [key: string]: string }) {
+    for (const key in args) {
+        if (args.hasOwnProperty(key)) {
+            obj[key] = args[key];
+        }
+    }
+}
+
 function deepClone(oldObj: any) {
     let newObj: any;
 
     // Handle the 3 simple types, and null or undefined
-    if (null == oldObj || "object" != typeof oldObj) return oldObj;
+    if (null == oldObj || "object" !== typeof oldObj) {
+        return oldObj;
+    }
 
     // Handle Date
     if (oldObj instanceof Date) {
@@ -40,7 +50,9 @@ function deepClone(oldObj: any) {
     if (oldObj instanceof Object) {
         newObj = Object.create(oldObj);
         for (const attr in oldObj) {
-            if (oldObj.hasOwnProperty(attr)) newObj[attr] = deepClone(oldObj[attr]);
+            if (oldObj.hasOwnProperty(attr)) {
+                newObj[attr] = deepClone(oldObj[attr]);
+            }
         }
         return newObj;
     }
@@ -49,7 +61,7 @@ function deepClone(oldObj: any) {
 }
 
 function cloneToArgs<T>(originalObj: T, cloneArgs: { [key: string]: any }): T {
-    const constructedObj = Object.create(<Object>originalObj);
+    const constructedObj = Object.create(originalObj as any);
     for (const i in originalObj) {
         if (originalObj.hasOwnProperty(i)) {
             if (cloneArgs[i] != null) {
@@ -60,12 +72,4 @@ function cloneToArgs<T>(originalObj: T, cloneArgs: { [key: string]: any }): T {
         }
     }
     return constructedObj;
-}
-
-function applyArgs(obj: { [key: string]: string }, args: { [key: string]: string }) {
-    for (const key in args) {
-        if (args.hasOwnProperty(key)) {
-            obj[key] = args[key];
-        }
-    }
 }
