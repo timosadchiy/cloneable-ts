@@ -7,7 +7,9 @@
     ],
     "types": [],
     "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "target": "es5",
+    "lib": ["es5", "es6", "dom"]
   },
   "files": [
     "index.d.ts",

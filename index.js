@@ -40,6 +40,13 @@ function deepClone(oldObj) {
         }
         return newObj;
     }
+
+    // Handle Map
+    if (oldObj instanceof Map) {
+        newObj = new Map(oldObj);
+        return newObj;
+    }
+
     // Handle Object
     if (oldObj instanceof Object) {
         newObj = Object.create(oldObj);

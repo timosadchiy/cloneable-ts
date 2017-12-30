@@ -21,12 +21,14 @@ interface TestArgs {
     readonly name: string;
     readonly dateOfBirth: Date;
     readonly subs: SubTest[];
+    readonly mp: Map<number, number>;
 }
 
 class Test extends Cloneable<TestArgs> implements CloneableArgs<TestArgs> {
     public readonly name: string;
     public readonly dateOfBirth: Date;
     public readonly subs: SubTest[];
+    public readonly mp: Map<number, number>;
 
     constructor(args: TestArgs) {
         super(args);
@@ -43,8 +45,9 @@ const t = new Test({
     subs: [
         new SubTest("someTest", "otherTest"),
     ],
+    mp: new Map([[23, 45]]),
 });
-const c = t.clone({name: secondName});
+const c = t.clone({name: secondName, mp: new Map([[32, 54]])});
 const d = t.clone();
 
 describe("Object is correctly initialized", () => {
@@ -52,6 +55,7 @@ describe("Object is correctly initialized", () => {
     it("properties should be set according to args", () => {
         expect(t.name).to.equal(firstName);
         expect(t.subs[0].getPrivate()).to.equal(otherTest);
+        expect(t.mp.get(23)).to.equal(45);
     });
 
 });
@@ -65,6 +69,8 @@ describe("Object is correctly cloned", () => {
         expect(t.constructor).to.equal(c.constructor);
         expect(c instanceof Test).to.equal(true);
         expect(t.dateOfBirth.getTime()).to.equal(c.dateOfBirth.getTime());
+        expect(c.mp.get(32)).to.equal(54);
+        expect(d.mp.get(23)).to.equal(45);
     });
 
 });
