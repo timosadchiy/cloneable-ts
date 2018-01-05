@@ -1,5 +1,5 @@
 # About
-Abstract class that provides a clone method for classes in Typescript. Inspired by the copy method of a case class in Scala language. 
+Abstract class that provides a deep clone method for classes in Typescript. Inspired by the copy method of a case class in Scala language. 
 
 # How to use
 
@@ -7,7 +7,23 @@ Abstract class that provides a clone method for classes in Typescript. Inspired 
 
     npm install cloneable-ts --save
     
-## Example
+## Clone object
+    // Interface that will be used as named arguments to initialize and clone an object
+    interface Person {
+        readonly name: string;
+        readonly age: number;
+        readonly tags: string[];
+    }
+    
+    const a: Person = {name: 'Alice', age: 28, tags: ['tag1']};
+    const b = Cloneable.clone(a, {name: 'Bob'});
+    
+    a.name // Alice
+    b.name // Bob
+    b.age // 28
+    a.tags === b.tags //false
+    
+## Clone instance of a class
 
     import {Cloneable, CloneableArgs} from 'cloneable-ts';
     

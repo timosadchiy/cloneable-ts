@@ -95,6 +95,7 @@ describe("Test Cloneable.clone helper method", () => {
         expect(clonedObj.name).to.equal(secondName);
         expect(obj.dateOfBirth.getTime()).to.equal(clonedObj.dateOfBirth.getTime());
         expect(obj.dateOfBirth).to.not.equal(clonedObj.dateOfBirth);
+        expect(obj.subs).to.not.equal(clonedObj.subs);
         expect(obj.mp.get(23)).to.equal(45);
         expect(clonedObj.mp.get(32)).to.equal(54);
     });
