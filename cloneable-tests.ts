@@ -40,15 +40,28 @@ const firstName = "Tim";
 const secondName = "Bob";
 const someTest = "someTest";
 const otherTest = "otherTest";
+const firstMp = new Map([[23, 45]]);
+const secondMp = new Map([[32, 54]]);
+const firstStrDate = "1988-1-1";
+
 const t = new Test({
-    name: firstName, dateOfBirth: new Date("1988-1-1"),
+    name: firstName, dateOfBirth: new Date(firstStrDate),
     subs: [
         new SubTest("someTest", "otherTest"),
     ],
-    mp: new Map([[23, 45]]),
+    mp: firstMp,
 });
-const c = t.clone({name: secondName, mp: new Map([[32, 54]])});
+const c = t.clone({name: secondName, mp: secondMp});
 const d = t.clone();
+
+const obj: TestArgs = {
+    name: firstName, dateOfBirth: new Date(firstStrDate),
+    subs: [
+        new SubTest("someTest", "otherTest"),
+    ],
+    mp: firstMp,
+};
+const clonedObj = Cloneable.clone(obj, {name: secondName, mp: secondMp})
 
 describe("Object is correctly initialized", () => {
 
@@ -71,6 +84,19 @@ describe("Object is correctly cloned", () => {
         expect(t.dateOfBirth.getTime()).to.equal(c.dateOfBirth.getTime());
         expect(c.mp.get(32)).to.equal(54);
         expect(d.mp.get(23)).to.equal(45);
+    });
+
+});
+
+describe("Test Cloneable.clone helper method", () => {
+
+    it("Object should be correctly cloned", () => {
+        expect(obj.name).to.equal(firstName);
+        expect(clonedObj.name).to.equal(secondName);
+        expect(obj.dateOfBirth.getTime()).to.equal(clonedObj.dateOfBirth.getTime());
+        expect(obj.dateOfBirth).to.not.equal(clonedObj.dateOfBirth);
+        expect(obj.mp.get(23)).to.equal(45);
+        expect(clonedObj.mp.get(32)).to.equal(54);
     });
 
 });

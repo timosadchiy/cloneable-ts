@@ -6,8 +6,9 @@ var Cloneable = /** @class */ (function () {
     }
 
     Cloneable.prototype.clone = function (args) {
-        return cloneToArgs(this, args || {});
+        return cloneProperties(this, args || {});
     };
+    Cloneable.clone = cloneProperties;
     return Cloneable;
 }());
 exports.Cloneable = Cloneable;
@@ -40,13 +41,11 @@ function deepClone(oldObj) {
         }
         return newObj;
     }
-
     // Handle Map
     if (oldObj instanceof Map) {
         newObj = new Map(oldObj);
         return newObj;
     }
-
     // Handle Object
     if (oldObj instanceof Object) {
         newObj = Object.create(oldObj);
@@ -60,7 +59,7 @@ function deepClone(oldObj) {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
-function cloneToArgs(originalObj, cloneArgs) {
+function cloneProperties(originalObj, cloneArgs) {
     var constructedObj = Object.create(originalObj);
     for (var i in originalObj) {
         if (originalObj.hasOwnProperty(i)) {

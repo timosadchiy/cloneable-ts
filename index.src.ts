@@ -1,11 +1,13 @@
 export abstract class Cloneable<T> {
 
+    public static clone = cloneProperties;
+
     constructor(args: T) {
         applyArgs(this as any, args as any);
     }
 
     public clone(args?: CloneableOptionalArgs<T>) {
-        return cloneToArgs(this, args || {});
+        return cloneProperties(this as any, args || {});
     }
 
 }
@@ -46,6 +48,12 @@ function deepClone(oldObj: any) {
         return newObj;
     }
 
+    // Handle Map
+    if (oldObj instanceof Map) {
+        newObj = new Map(oldObj);
+        return newObj;
+    }
+
     // Handle Object
     if (oldObj instanceof Object) {
         newObj = Object.create(oldObj);
@@ -60,7 +68,7 @@ function deepClone(oldObj: any) {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
-function cloneToArgs<T>(originalObj: T, cloneArgs: { [key: string]: any }): T {
+function cloneProperties<T>(originalObj: T, cloneArgs: CloneableOptionalArgs<T>): T {
     const constructedObj = Object.create(originalObj as any);
     for (const i in originalObj) {
         if (originalObj.hasOwnProperty(i)) {
