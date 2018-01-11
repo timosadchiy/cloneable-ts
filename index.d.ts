@@ -1,6 +1,6 @@
 export declare abstract class Cloneable<T> {
 
-    public static clone<T>(originalObj: T, cloneArgs: CloneableOptionalArgs<T>): T;
+    public static clone<T>(originalObj: T, cloneArgs?: CloneableOptionalArgs<T>): T;
 
     constructor(args: T)
 

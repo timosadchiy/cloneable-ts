@@ -61,7 +61,8 @@ const obj: TestArgs = {
     ],
     mp: firstMp,
 };
-const clonedObj = Cloneable.clone(obj, {name: secondName, mp: secondMp})
+const clonedObj = Cloneable.clone(obj, {name: secondName, mp: secondMp});
+const clonedObj2 = Cloneable.clone(obj);
 
 describe("Object is correctly initialized", () => {
 
@@ -91,6 +92,7 @@ describe("Object is correctly cloned", () => {
 describe("Test Cloneable.clone helper method", () => {
 
     it("Object should be correctly cloned", () => {
+        expect(obj.name).to.equal(clonedObj2.name);
         expect(obj.name).to.equal(firstName);
         expect(clonedObj.name).to.equal(secondName);
         expect(obj.dateOfBirth.getTime()).to.equal(clonedObj.dateOfBirth.getTime());

@@ -60,11 +60,12 @@ function deepClone(oldObj) {
 }
 
 function cloneProperties(originalObj, cloneArgs) {
+    var args = cloneArgs || {};
     var constructedObj = Object.create(originalObj);
     for (var i in originalObj) {
         if (originalObj.hasOwnProperty(i)) {
-            if (cloneArgs[i] != null) {
-                constructedObj[i] = deepClone(cloneArgs[i]);
+            if (args[i] != null) {
+                constructedObj[i] = deepClone(args[i]);
             }
             else {
                 constructedObj[i] = deepClone(originalObj[i]);
