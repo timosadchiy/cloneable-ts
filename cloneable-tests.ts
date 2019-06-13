@@ -40,8 +40,8 @@ const firstName = "Tim";
 const secondName = "Bob";
 const someTest = "someTest";
 const otherTest = "otherTest";
-const firstMp = new Map([[23, 45]]);
-const secondMp = new Map([[32, 54]]);
+const firstMp = new Map([[23, 45] as [number, number]]);
+const secondMp = new Map([[32, 54] as [number, number]]);
 const firstStrDate = "1988-1-1";
 
 const t = new Test({
