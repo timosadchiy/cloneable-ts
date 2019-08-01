@@ -68,8 +68,8 @@ function deepClone(oldObj: any) {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
-function cloneProperties<T>(originalObj: T, cloneArgs?: CloneableOptionalArgs<T>): T {
-    const args = cloneArgs || {};
+function cloneProperties<T extends object>(originalObj: T, cloneArgs?: CloneableOptionalArgs<T>): T {
+    const args: CloneableOptionalArgs<T> = cloneArgs || {};
     const constructedObj = Object.create(originalObj as any);
     for (const i in originalObj) {
         if (originalObj.hasOwnProperty(i)) {

@@ -11,7 +11,6 @@ var Cloneable = /** @class */ (function () {
     Cloneable.clone = cloneProperties;
     return Cloneable;
 }());
-exports.Cloneable = Cloneable;
 
 function applyArgs(obj, args) {
     for (var key in args) {
@@ -66,11 +65,13 @@ function cloneProperties(originalObj, cloneArgs) {
         if (originalObj.hasOwnProperty(i)) {
             if (args[i] != null) {
                 constructedObj[i] = deepClone(args[i]);
-            }
-            else {
+            } else {
                 constructedObj[i] = deepClone(originalObj[i]);
             }
         }
     }
     return constructedObj;
 }
+
+exports.Cloneable = Cloneable;
+exports.clone = cloneProperties;

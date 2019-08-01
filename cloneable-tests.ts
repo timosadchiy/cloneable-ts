@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import "mocha";
-import {Cloneable, CloneableArgs} from "./index";
+import {clone, Cloneable, CloneableArgs} from "./index";
 
 class SubTest {
     public readonly someArg: string;
@@ -38,7 +38,6 @@ class Test extends Cloneable<TestArgs> implements CloneableArgs<TestArgs> {
 
 const firstName = "Tim";
 const secondName = "Bob";
-const someTest = "someTest";
 const otherTest = "otherTest";
 const firstMp = new Map([[23, 45] as [number, number]]);
 const secondMp = new Map([[32, 54] as [number, number]]);
@@ -61,8 +60,8 @@ const obj: TestArgs = {
     ],
     mp: firstMp,
 };
-const clonedObj = Cloneable.clone(obj, {name: secondName, mp: secondMp});
-const clonedObj2 = Cloneable.clone(obj);
+const clonedObj = clone(obj, {name: secondName, mp: secondMp});
+const clonedObj2 = clone(obj);
 
 describe("Object is correctly initialized", () => {
 
